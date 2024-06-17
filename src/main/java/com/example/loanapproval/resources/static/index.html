@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loan Approval System</title>
+    <script>
+        async function fetchLoans() {
+            const response = await fetch('/loans');
+            const loans = await response.json();
+            let loansHtml = '<ul>';
+            loans.forEach(loan => {
+                loansHtml += `<li>${loan.loanType}: $${loan.loanAmount} - ${loan.loanStatus} (ID: ${loan.loanId})</li>`;
+            });
+            loansHtml += '</ul>';
+            document.getElementById('loans').innerHTML = loansHtml;
+        }
+
+        async function fetchUsers() {
+            const response = await fetch('/users');
+            const users = await response.json();
+            let usersHtml = '<ul>';
+            users.forEach(user => {
+                usersHtml += `<li>${user.name} (ID: ${user.userId}) - Credit Score: ${user.creditScore}</li>`;
+            });
+            usersHtml += '</ul>';
+            document.getElementById('users').innerHTML = usersHtml;
+        }
+
+        async function fetchUserById() {
+            const userId = document.getElementById('userId').value;
+            const response = await fetch(`/users/${userId}`);
+            const user = await response.json();
+            if (user) {
+                document.getElementById('userDetails').innerText = `${user.name} - Email: ${user.email} - Credit Score: ${user.creditScore}`;
+            } else {
+                document.getElementById('userDetails').innerText = 'User not found';
+            }
+        }
+
+        async function fetchLoanById() {
+            const loanId = document.getElementById('loanId').value;
+            const response = await fetch(`/loans/${loanId}`);
+            const loan = await response.json();
+            if (loan) {
+                document.getElementById('loanDetails').innerText = `${loan.loanType}: $${loan.loanAmount} - ${loan.loanStatus} (Due Date: ${new Date(loan.calculateDueDate).toLocaleDateString()})`;
+            } else {
+                document.getElementById('loanDetails').innerText = 'Loan not found';
+            }
+        }
+
+        async function fetchLoanDueDate() {
+            const loanId = document.getElementById('loanIdDueDate').value;
+            const response = await fetch(`/loans/${loanId}/due-date`);
+            const dueDate = await response.json();
+            if (dueDate) {
+                document.getElementById('loanDueDate').innerText = `Due Date: ${new Date(dueDate).toLocaleDateString()}`;
+            } else {
+                document.getElementById('loanDueDate').innerText = 'Loan not found';
+            }
+        }
+
+        async function fetchPaymentStatus() {
+            const loanId = document.getElementById('loanIdPayment').value;
+            const paymentDate = document.getElementById('paymentDate').value;
+            const response = await fetch(`/loans/${loanId}/payment/${paymentDate}`);
+            const paymentStatus = await response.json();
+            if (paymentStatus) {
+                document.getElementById('paymentStatus').innerText = `Payment Status: ${paymentStatus}`;
+            } else {
+                document.getElementById('paymentStatus').innerText = 'Loan or payment status not found';
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>Loan Approval System</h1>
+
+<h2>View Loans</h2>
+<button onclick="fetchLoans()">Fetch Loans</button>
+<div id="loans"></div>
+
+<h2>View Users</h2>
+<button onclick="fetchUsers()">Fetch Users</button>
+<div id="users"></div>
+
+<h2>Get User by ID</h2>
+<input type="number" id="userId" placeholder="Enter User ID">
+<button onclick="fetchUserById()">Fetch User</button>
+<div id="userDetails"></div>
+
+<h2>Get Loan by ID</h2>
+<input type="number" id="loanId" placeholder="Enter Loan ID">
+<button onclick="fetchLoanById()">Fetch Loan</button>
+<div id="loanDetails"></div>
+
+<h2>Check Loan Due Date</h2>
+<input type="number" id="loanIdDueDate" placeholder="Enter Loan ID">
+<button onclick="fetchLoanDueDate()">Check Due Date</button>
+<div id="loanDueDate"></div>
+
+<h2>Check Loan Payment Status</h2>
+<input type="number" id="loanIdPayment" placeholder="Enter Loan ID">
+<input type="date" id="paymentDate">
+<button onclick="fetchPaymentStatus()">Check Payment Status</button>
+<div id="paymentStatus"></div>
+</body>
+</html>
