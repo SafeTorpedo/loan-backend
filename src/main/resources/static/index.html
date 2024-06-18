@@ -2,6 +2,77 @@
 <html>
 <head>
     <title>Loan Approval System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            color: #343a40;
+            margin-top: 20px;
+        }
+        h2 {
+            color: #343a40;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .card {
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .card h2 {
+            margin-top: 0;
+        }
+        .button {
+            background: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .input-group {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        .input-group input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            flex: 1;
+        }
+        .input-group button {
+            margin-left: 10px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #f8f9fa;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #paymentDate {
+            max-width: 200px;
+        }
+    </style>
     <script>
         async function fetchLoans() {
             const response = await fetch('/loans');
@@ -74,33 +145,57 @@
 <body>
 <h1>Loan Approval System</h1>
 
-<h2>View Loans</h2>
-<button onclick="fetchLoans()">Fetch Loans</button>
-<div id="loans"></div>
+<div class="container">
+    <div class="card">
+        <h2>View Loans</h2>
+        <button class="button" onclick="fetchLoans()">Fetch Loans</button>
+        <div id="loans"></div>
+    </div>
 
-<h2>View Users</h2>
-<button onclick="fetchUsers()">Fetch Users</button>
-<div id="users"></div>
+    <div class="card">
+        <h2>View Users</h2>
+        <button class="button" onclick="fetchUsers()">Fetch Users</button>
+        <div id="users"></div>
+    </div>
 
-<h2>Get User by ID</h2>
-<input type="number" id="userId" placeholder="Enter User ID">
-<button onclick="fetchUserById()">Fetch User</button>
-<div id="userDetails"></div>
+    <div class="card">
+        <h2>Get User by ID</h2>
+        <div class="input-group">
+            <input type="number" id="userId" placeholder="Enter User ID">
+            <button class="button" onclick="fetchUserById()">Fetch User</button>
+        </div>
+        <div id="userDetails"></div>
+    </div>
 
-<h2>Get Loan by ID</h2>
-<input type="number" id="loanId" placeholder="Enter Loan ID">
-<button onclick="fetchLoanById()">Fetch Loan</button>
-<div id="loanDetails"></div>
+    <div class="card">
+        <h2>Get Loan by ID</h2>
+        <div class="input-group">
+            <input type="number" id="loanId" placeholder="Enter Loan ID">
+            <button class="button" onclick="fetchLoanById()">Fetch Loan</button>
+        </div>
+        <div id="loanDetails"></div>
+    </div>
 
-<h2>Check Loan Due Date</h2>
-<input type="number" id="loanIdDueDate" placeholder="Enter Loan ID">
-<button onclick="fetchLoanDueDate()">Check Due Date</button>
-<div id="loanDueDate"></div>
+    <div class="card">
+        <h2>Check Loan Due Date</h2>
+        <div class="input-group">
+            <input type="number" id="loanIdDueDate" placeholder="Enter Loan ID">
+            <button class="button" onclick="fetchLoanDueDate()">Check Due Date</button>
+        </div>
+        <div id="loanDueDate"></div>
+    </div>
 
-<h2>Check Loan Payment Status</h2>
-<input type="number" id="loanIdPayment" placeholder="Enter Loan ID">
-<input type="date" id="paymentDate">
-<button onclick="fetchPaymentStatus()">Check Payment Status</button>
-<div id="paymentStatus"></div>
+    <div class="card">
+        <h2>Check Loan Payment Status</h2>
+        <div class="input-group">
+            <input type="number" id="loanIdPayment" placeholder="Enter Loan ID">
+            <input type="date" id="paymentDate">
+            <button class="button" onclick="fetchPaymentStatus()">Check Payment Status</button>
+        </div>
+        <div id="paymentStatus"></div>
+    </div>
+</div>
 </body>
 </html>
+
+
