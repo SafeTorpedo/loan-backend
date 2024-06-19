@@ -1,9 +1,7 @@
 @import url(//fonts.googleapis.com/css?family=Lato:300:400);
 
 body {
-  margin: 0;
-  font-family: "Lato", sans-serif;
-  font-weight: 800;
+  margin:0;
 }
 
 h1 {
@@ -112,91 +110,70 @@ p {
 }
 
 h2 {
-  color: #343a40;
-}
-.container {
-  width: 80%;
-  margin: auto;
-  overflow: hidden;
-  color: #080808;
-}
-.card {
-  background: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 20px;
-  margin: 20px 25px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(50px);
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-}
-.card h2 {
-  margin-top: 5px;
-}
-.button {
-  background: #317ab5;
-  color: #ffffff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-.button:hover {
-  background: #0056b3;
-}
-.input-group {
-  display: flex;
-  margin-bottom: 10px;
-}
-.input-group input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  flex: 1;
-}
-.input-group button {
-  margin-left: 10px;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  background: #f8f9fa;
-  margin: 5px 0;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-#paymentDate {
-  max-width: 200px;
-}
-
-
-table {
-  width: 100%;
-  border-collapse: separate; /* Changed from collapse to separate */
-  border-spacing: 10px; /* Adds space between cells */
-}
-
-th, td {
-  border: 1px solid #ddd;
-  padding: 12px; /* Increased padding for better spacing */
-}
-
-th {
-  background-color: #f2f2f2;
-  text-align: left;
-}
-
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
+    color: #343a40;
+  }
+  .container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    color: #080808;
+  }
+  .card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(50px);
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  .card h2 {
+    margin-top: 0;
+  }
+  .button {
+    background: #317ab5;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .button:hover {
+    background: #0056b3;
+  }
+  .input-group {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  .input-group input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    flex: 1;
+  }
+  .input-group button {
+    margin-left: 10px;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    background: #f8f9fa;
+    margin: 5px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  #paymentDate {
+    max-width: 200px;
+  }
