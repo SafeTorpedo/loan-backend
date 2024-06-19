@@ -1,24 +1,96 @@
 async function fetchLoans() {
-    const response = await fetch("/loans");
-    const loans = await response.json();
-    let loansHtml = "<ul>";
-    loans.forEach((loan) => {
-      loansHtml += `<li>${loan.loanType}: $${loan.loanAmount} - ${loan.loanStatus} (ID: ${loan.loanId})</li>`;
-    });
-    loansHtml += "</ul>";
-    document.getElementById("loans").innerHTML = loansHtml;
-  }
+  const loansDiv = document.getElementById('loans');
 
-  async function fetchUsers() {
-    const response = await fetch("/users");
-    const users = await response.json();
-    let usersHtml = "<ul>";
-    users.forEach((user) => {
-      usersHtml += `<li>${user.name} (ID: ${user.userId}) - Credit Score: ${user.creditScore}</li>`;
+  // Check if the loans are already displayed
+  if (loansDiv.style.display === 'block') {
+    // Hide the loans
+    loansDiv.style.display = 'none';
+    loansDiv.innerHTML = ''; // Clear the content
+  } else {
+    // Fetch and display the loans
+    const response = await fetch('/loans');
+    const loans = await response.json();
+    let loansHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>Loan ID</th>
+            <th>Loan Type</th>
+            <th>Loan Amount</th>
+            <th>Loan Status</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+    loans.forEach((loan) => {
+      // Determine the background color based on loan status
+      const statusColor = loan.loanStatus === 'APPROVED' ? '#e6ffe6' : '#ffbfbf';
+
+      loansHtml += `
+        <tr>
+          <td>${loan.loanId}</td>
+          <td>${loan.loanType}</td>
+          <td>$${loan.loanAmount}</td>
+          <td style="background-color: ${statusColor};">${loan.loanStatus}</td>
+        </tr>
+      `;
     });
-    usersHtml += "</ul>";
-    document.getElementById("users").innerHTML = usersHtml;
+    loansHtml += `
+        </tbody>
+      </table>
+    `;
+    loansDiv.innerHTML = loansHtml;
+    loansDiv.style.display = 'block'; // Ensure the loans are displayed
   }
+}
+
+
+
+
+async function fetchUsers() {
+  const usersDiv = document.getElementById('users');
+
+  // Check if the users are already displayed
+  if (usersDiv.style.display === 'block') {
+    // Hide the users
+    usersDiv.style.display = 'none';
+    usersDiv.innerHTML = ''; // Clear the content
+  } else {
+    // Fetch and display the users
+    const response = await fetch('/users');
+    const users = await response.json();
+    let usersHtml = `
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>User ID</th>
+            <th>Credit Score</th>
+          </tr>
+        </thead>
+        <tbody>
+    `;
+    users.forEach((user) => {
+      const creditScoreColor = user.creditScore < 650 ? '#ffbfbf' : '#e6ffe6';
+      usersHtml += `
+        <tr>
+          <td>${user.name}</td>
+          <td>${user.userId}</td>
+          <td style="background-color: ${creditScoreColor};">${user.creditScore}</td>
+        </tr>
+      `;
+    });
+    usersHtml += `
+        </tbody>
+      </table>
+    `;
+    usersDiv.innerHTML = usersHtml;
+    usersDiv.style.display = 'block'; // Ensure the users are displayed
+  }
+}
+
+
+
 
   async function fetchUserById() {
     const userId = document.getElementById("userId").value;
