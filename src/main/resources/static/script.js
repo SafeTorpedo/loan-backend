@@ -147,3 +147,61 @@ async function fetchUsers() {
         "Loan or payment status not found";
     }
   }
+
+  // login or register form javascript
+
+
+  const forms = document.querySelector(".forms"),
+      pwShowHide = document.querySelectorAll(".eye-icon"),
+      links = document.querySelectorAll(".link");
+
+pwShowHide.forEach(eyeIcon => {
+    eyeIcon.addEventListener("click", () => {
+        let pwFields = eyeIcon.parentElement.parentElement.querySelectorAll(".password");
+        
+        pwFields.forEach(password => {
+            if(password.type === "password"){
+                password.type = "text";
+                eyeIcon.classList.replace("bx-hide", "bx-show");
+                return;
+            }
+            password.type = "password";
+            eyeIcon.classList.replace("bx-show", "bx-hide");
+        })
+        
+    })
+})      
+
+links.forEach(link => {
+    link.addEventListener("click", e => {
+       e.preventDefault(); //preventing form submit
+       forms.classList.toggle("show-signup");
+    })
+})
+
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.getElementById("login-form");
+  const signupForm = document.getElementById("signup-form");
+
+  function redirectToPage(email) {
+      if (email.endsWith("@user.com")) {
+          window.location.href = "index2.html";
+      } else if (email.endsWith("@admin.com")) {
+          window.location.href = "index1.html";
+      } else {
+          alert("Invalid email domain.");
+      }
+  }
+
+  loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value;
+      redirectToPage(email);
+  });
+
+  signupForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const email = document.getElementById("signup-email").value;
+      redirectToPage(email);
+  });
+});
