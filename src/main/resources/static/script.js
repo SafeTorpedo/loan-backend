@@ -90,35 +90,74 @@ async function fetchUsers() {
 }
 
 
-
-
+// Function to fetch and display user details by ID
   async function fetchUserById() {
     const userId = document.getElementById("userId").value;
     const response = await fetch(`/users/${userId}`);
     const user = await response.json();
     if (user) {
-      document.getElementById(
-        "userDetails"
-      ).innerText = `${user.name} - Email: ${user.email} - Credit Score: ${user.creditScore}`;
+      let userTable = `
+        <table>
+          <thead>
+            <tr>
+              <th>User ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Credit Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>${user.userId}</td>
+              <td>${user.name}</td>
+              <td>${user.email}</td>
+              <td>${user.creditScore}</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+      document.getElementById("userDetails").innerHTML = userTable;
     } else {
       document.getElementById("userDetails").innerText = "User not found";
     }
   }
 
+  // Function to fetch and display loan details by ID
   async function fetchLoanById() {
     const loanId = document.getElementById("loanId").value;
     const response = await fetch(`/loans/${loanId}`);
     const loan = await response.json();
     if (loan) {
-      document.getElementById("loanDetails").innerText = `${
-        loan.loanType
-      }: $${loan.loanAmount} - ${loan.loanStatus} (Due Date: ${new Date(
-        loan.calculateDueDate
-      ).toLocaleDateString()})`;
+      let loanTable = `
+        <table>
+          <thead>
+            <tr>
+              <th>Loan ID</th>
+              <th>Loan Type</th>
+              <th>Loan Amount</th>
+              <th>Loan Status</th>
+              <th>Due Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>${loan.loanId}</td>
+              <td>${loan.loanType}</td>
+              <td>$${loan.loanAmount}</td>
+              <td>${loan.loanStatus}</td>
+              <td>${new Date(loan.calculateDueDate).toLocaleDateString()}</td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+      document.getElementById("loanDetails").innerHTML = loanTable;
     } else {
       document.getElementById("loanDetails").innerText = "Loan not found";
     }
   }
+
+
+
 
   async function fetchLoanDueDate() {
     const loanId = document.getElementById("loanIdDueDate").value;
