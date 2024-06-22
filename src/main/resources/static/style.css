@@ -179,6 +179,25 @@ h2 {
   }
 
 
+/* Added styles for table column spacing */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 12px; /* Increased padding for more spacing */
+}
+
+th {
+  padding-top: 16px; /* Increased top padding for headers */
+  padding-bottom: 16px; /* Increased bottom padding for headers */
+  text-align: left;
+  background-color: #f2f2f2;
+}
+
+
 
 
 
