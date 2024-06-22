@@ -42,13 +42,21 @@
     <div class="container">
       <div class="card">
         <h2>User Details</h2>
+        <div class="input-group">
+            <input type="number" id="userId" placeholder="Enter User ID" />
+            <button class="button" onclick="fetchUserById()">Fetch User</button>
+        </div>
         <div id="userDetails"></div>
-      </div>
+    </div>
 
-      <div class="card">
-        <h2>User Loans</h2>
-        <div id="userLoans"></div>
-      </div>
+    <div class="card">
+        <h2>User Loan </h2>
+        <div class="input-group">
+            <input type="number" id="loanId" placeholder="Enter Loan ID" />
+            <button class="button" onclick="fetchLoanById()">Fetch Loan</button>
+        </div>
+        <div id="loanDetails"></div>
+    </div>
     </div>
 
     <script src="script.js"></script>
