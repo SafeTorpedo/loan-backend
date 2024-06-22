@@ -5,31 +5,35 @@ import com.example.loanapproval.service.LoanService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import com.example.loanapproval.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Objects;
+
 
 
 @RestController
 public class LoanController {
-
-    private List<User> users = Arrays.asList(
-            new User(1L, "Alice Smith", "aa", 700),
-            new User(2L, "Bob Brown", "bb", 600)
-    );
-
-    private List<Loan> loans = Arrays.asList(
-            new CarLoan(1L, 50000, users.get(0), new Date(), 2),
-            new EducationLoan(2L, 30000, users.get(1), new Date(), 1),
-            new HomeLoan(3L, 100000, users.get(0), new Date(), 10)
-    );
-
+    
+    @Autowired
+    private UserRepository userRepository;
     private LoanService loanService = new LoanService();
 
     @GetMapping("/loans")
     public List<Loan> getLoans() {
+        
+        List<User> users = userRepository.findAll();
+        
+        List<Loan> loans = Arrays.asList(
+                new CarLoan(1L, 50000, users.get(0), new Date(), 2),
+                new EducationLoan(2L, 30000, users.get(1), new Date(), 1),
+                new HomeLoan(3L, 100000, users.get(0), new Date(), 10)
+        );
+
         for (Loan loan : loans) {
             loanService.approveLoan(loan);
         }
@@ -38,21 +42,24 @@ public class LoanController {
 
     @GetMapping("/users")
     public List<User> getUsers() {
-        return users;
+        return userRepository.findAll();
     }
 
     @GetMapping("/users/{userId}")
     public User getUserById(@PathVariable Long userId) {
-        for (User user : users) {
-            if (Objects.equals(user.getUserId(), userId)) {
-                return user;
-            }
-        }
-        return null;
+        Optional<User> user = userRepository.findById(userId);
+        return user.orElse(null);
     }
 
     @GetMapping("/loans/{loanId}")
     public Loan getLoanById(@PathVariable Long loanId) {
+
+        List<User> users = userRepository.findAll();
+        List<Loan> loans = Arrays.asList(
+                new CarLoan(1L, 50000, users.get(0), new Date(), 2),
+                new EducationLoan(2L, 30000, users.get(1), new Date(), 1),
+                new HomeLoan(3L, 100000, users.get(0), new Date(), 10)
+        );
         for (Loan loan : loans) {
             if (Objects.equals(loan.getLoanId(), loanId)) {
                 return loan;
