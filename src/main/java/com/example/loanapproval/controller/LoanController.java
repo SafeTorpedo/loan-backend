@@ -2,6 +2,7 @@ package com.example.loanapproval.controller;
 
 import com.example.loanapproval.model.*;
 import com.example.loanapproval.service.LoanService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import java.util.Optional;
 import java.util.Objects;
 
 
-
+@CrossOrigin
 @RestController
 public class LoanController {
     
