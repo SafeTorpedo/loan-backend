@@ -60,11 +60,7 @@ public class LoanController {
         return null;
     }
 
-    @GetMapping("/loans/{loanId}/payment/{paymentDate}")
-    public LoanService.PaymentStatus getPaymentStatus(@PathVariable Long loanId, @PathVariable Date paymentDate) {
-        Loan loan = getLoanById(loanId);
-        return loanService.checkAndUpdateCreditScore(loan, paymentDate);
-    }
+
 
     // endpoint to check loan due date
     @GetMapping("/loans/{loanId}/due-date")
