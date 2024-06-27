@@ -2,10 +2,7 @@ package com.example.loanapproval.controller;
 
 import com.example.loanapproval.model.*;
 import com.example.loanapproval.service.LoanService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.example.loanapproval.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -72,21 +69,20 @@ public class LoanController {
     }
 
     // new loan
-    @GetMapping("/loans/add/{userId}/{loanAmount}/{loanType}/{tenure}")
-    public Loan addLoan(@PathVariable Long userId, @PathVariable double loanAmount, @PathVariable String loanType,
-            @PathVariable int tenure) {
-        Optional<User> user = userRepository.findById(userId);
+    @PostMapping("/loans/add")
+    public Loan addLoan(@RequestBody LoanRequest loanRequest) {
+        Optional<User> user = userRepository.findById(loanRequest.getUserId());
         if (user.isPresent()) {
             Loan newLoan = null;
-            switch (loanType) {
+            switch (loanRequest.getLoanType().toLowerCase()) {
                 case "car":
-                    newLoan = new CarLoan((long) loans.size() + 1, loanAmount, user.get(), new Date(), tenure);
+                    newLoan = new CarLoan((long) loans.size() + 1, loanRequest.getLoanAmount(), user.get(), new Date(), loanRequest.getTenure());
                     break;
                 case "edu":
-                    newLoan = new EducationLoan((long) loans.size() + 1, loanAmount, user.get(), new Date(), tenure);
+                    newLoan = new EducationLoan((long) loans.size() + 1, loanRequest.getLoanAmount(), user.get(), new Date(), loanRequest.getTenure());
                     break;
                 case "home":
-                    newLoan = new HomeLoan((long) loans.size() + 1, loanAmount, user.get(), new Date(), tenure);
+                    newLoan = new HomeLoan((long) loans.size() + 1, loanRequest.getLoanAmount(), user.get(), new Date(), loanRequest.getTenure());
                     break;
             }
             if (newLoan != null) {
@@ -96,5 +92,44 @@ public class LoanController {
         }
         return null;
     }
+}
 
+class LoanRequest {
+    private Long userId;
+    private double loanAmount;
+    private String loanType;
+    private int tenure;
+
+    // Getters and Setters
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public double getLoanAmount() {
+        return loanAmount;
+    }
+
+    public void setLoanAmount(double loanAmount) {
+        this.loanAmount = loanAmount;
+    }
+
+    public String getLoanType() {
+        return loanType;
+    }
+
+    public void setLoanType(String loanType) {
+        this.loanType = loanType;
+    }
+
+    public int getTenure() {
+        return tenure;
+    }
+
+    public void setTenure(int tenure) {
+        this.tenure = tenure;
+    }
 }
