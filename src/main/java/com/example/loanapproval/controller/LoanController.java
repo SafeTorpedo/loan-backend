@@ -66,6 +66,8 @@ public class LoanController {
     @GetMapping("/loans/{loanId}/due-date")
     public Date getDueDate(@PathVariable Long loanId) {
         Loan loan = getLoanById(loanId);
+        if (loan == null)
+            return null;
         return loan.calculateDueDate();
     }
 

@@ -18,6 +18,8 @@ async function fetchLoans() {
             <th>Loan Type</th>
             <th>Loan Amount</th>
             <th>Loan Status</th>
+            <th>Applicant Name</th>
+            <th>Applicant ID</th>
           </tr>
         </thead>
         <tbody>
@@ -32,6 +34,8 @@ async function fetchLoans() {
           <td>${loan.loanType}</td>
           <td>$${loan.loanAmount}</td>
           <td style="background-color: ${statusColor};">${loan.loanStatus}</td>
+            <td>${loan.applicant.name}</td>
+            <td>${loan.applicant.userId}</td>
         </tr>
       `;
     });
@@ -136,7 +140,8 @@ async function fetchUsers() {
               <th>Loan Type</th>
               <th>Loan Amount</th>
               <th>Loan Status</th>
-              <th>Due Date</th>
+              <th>Applicant Name</th>
+              <th>Applicant ID</th>
             </tr>
           </thead>
           <tbody>
@@ -145,7 +150,8 @@ async function fetchUsers() {
               <td>${loan.loanType}</td>
               <td>$${loan.loanAmount}</td>
               <td>${loan.loanStatus}</td>
-              <td>${new Date(loan.calculateDueDate).toLocaleDateString()}</td>
+                <td>${loan.applicant.name}</td>
+                <td>${loan.applicant.userId}</td>
             </tr>
           </tbody>
         </table>
